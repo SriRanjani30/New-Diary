@@ -1,0 +1,44 @@
+<div class="content">
+  <h2>Settings</h2>
+  
+  <div class="settings-section">
+    <h3>Change Background</h3>
+    <input type="file" id="bgUpload" accept="image/*">
+    <br><br>
+    <input type="text" id="bgUrl" placeholder="Enter image URL">
+    <button onclick="changeBgUrl()">Set Background</button>
+  </div>
+</div>
+
+<script>
+  const bgUpload = document.getElementById("bgUpload") as HTMLInputElement;
+
+  bgUpload?.addEventListener("change", function () {
+    if (this.files && this.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        if (e.target?.result) {
+          localStorage.setItem("backgroundImage", e.target.result as string);
+          document.body.style.backgroundImage = `url(${e.target.result})`;
+        }
+      };
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
+
+  function changeBgUrl() {
+    const input = document.getElementById("bgUrl") as HTMLInputElement;
+    if (input.value) {
+      localStorage.setItem("backgroundImage", input.value);
+      document.body.style.backgroundImage = `url(${input.value})`;
+    }
+  }
+</script>
+<div class="settings-section">
+  <h3>Change Background</h3>
+  <input type="file" id="bgUpload" accept="image/*">
+  <br><br>
+  <input type="text" id="bgUrl" placeholder="Enter image URL">
+  <button id="setBgBtn">Set Background</button>
+</div>
+
